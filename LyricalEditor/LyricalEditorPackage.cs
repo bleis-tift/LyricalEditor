@@ -28,6 +28,8 @@ namespace bleistift.LyricalEditor
     // in the Help/About dialog of Visual Studio.
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)]
     [Guid(GuidList.guidLyricalEditorPkgString)]
+    [ProvideAutoLoad("ADFC4E64-0397-11D1-9F4E-00A0C911004F")]
+    [ProvideAutoLoad("F1536EF8-92EC-443C-9ED7-FDADF150DA82")]
     public sealed class LyricalEditorPackage : Package
     {
         /// <summary>
