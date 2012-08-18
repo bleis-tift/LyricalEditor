@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LyricalEditor", "LyricalEditor\LyricalEditor.csproj", "{B3188498-B6A7-4AB2-BE04-7B63A206D778}"
 EndProject
 Global
