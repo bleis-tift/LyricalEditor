@@ -57,6 +57,7 @@ namespace bleistift.LyricalEditor
         T Get<T>(Func<Type, object> f) { return Get<T, T>(f); }
 
         static List<Detail> details = new List<Detail>();
+        public static IEnumerable<Detail> Details { get { return details; } }
         void LoadConfig()
         {
             var conf = Get<GlobalConfigs>(GetDialogPage);
