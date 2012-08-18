@@ -9,6 +9,9 @@ using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
 using EnvDTE;
+using bleistift.LyricalEditor.Options;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace bleistift.LyricalEditor
 {
@@ -29,6 +32,7 @@ namespace bleistift.LyricalEditor
     // in the Help/About dialog of Visual Studio.
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)]
     [Guid(GuidList.guidLyricalEditorPkgString)]
+    [ProvideOptionPage(typeof(GlobalConfigs), "Lyrical Editor", "Top", 0, 0, true)]
     [ProvideAutoLoad("ADFC4E64-0397-11D1-9F4E-00A0C911004F")]
     [ProvideAutoLoad("F1536EF8-92EC-443C-9ED7-FDADF150DA82")]
     public sealed class LyricalEditorPackage : Package
@@ -52,9 +56,11 @@ namespace bleistift.LyricalEditor
         TResult Get<TService, TResult>(Func<Type, object> f) { return (TResult)f(typeof(TService)); }
         T Get<T>(Func<Type, object> f) { return Get<T, T>(f); }
 
+        static List<Detail> details = new List<Detail>();
         void LoadConfig()
         {
-            // TODO : 設定を読み込む
+            var conf = Get<GlobalConfigs>(GetDialogPage);
+            details = Detail.Details(conf.DetailsStr).Select(kv => kv.Item2).ToList();
         }
 
         /////////////////////////////////////////////////////////////////////////////
