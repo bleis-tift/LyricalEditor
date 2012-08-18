@@ -8,6 +8,7 @@ using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
+using EnvDTE;
 
 namespace bleistift.LyricalEditor
 {
@@ -44,7 +45,17 @@ namespace bleistift.LyricalEditor
             Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", this.ToString()));
         }
 
+        DTE dte;
+        SolutionEvents solEvents;
+        DocumentEvents docEvents;
 
+        TResult Get<TService, TResult>(Func<Type, object> f) { return (TResult)f(typeof(TService)); }
+        T Get<T>(Func<Type, object> f) { return Get<T, T>(f); }
+
+        void LoadConfig()
+        {
+            // TODO : 設定を読み込む
+        }
 
         /////////////////////////////////////////////////////////////////////////////
         // Overriden Package Implementation
@@ -59,6 +70,11 @@ namespace bleistift.LyricalEditor
             Trace.WriteLine (string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", this.ToString()));
             base.Initialize();
 
+            dte = Get<DTE>(GetService);
+            solEvents = dte.Events.SolutionEvents;
+            solEvents.Opened += () => LoadConfig();
+            docEvents = dte.Events.DocumentEvents;
+            docEvents.DocumentOpening += (docPath, readOnly) => LoadConfig();
         }
         #endregion
 
